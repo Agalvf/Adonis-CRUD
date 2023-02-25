@@ -6,28 +6,33 @@ Route.get('/', async () => {
 })
 
 //Rutas para cualquier usuario
-Route.post("/register","AuthController.register")
-Route.post("/login","AuthController.login")
-Route.get("/books","BooksController.index")
-Route.get("/books/:id","BooksController.show")
+Route.post("/register", "AuthController.register")
+Route.post("/login", "AuthController.login")
 
 Route.group(() => {
-  Route.group(()=>{ //Rutas para los editores
-    Route.get("/users","AuthController.searchAll")
-    Route.get("/user/:id","AuthController.searchUserId")
-    Route.put("/user/update/:id","AuthController.updateUser")
-    Route.get("/profile","ProfilesController.getAllProfiles")
-    Route.get("/profile/:id","ProfilesController.searchProfileId")
-    Route.put("/profile/update/:id","ProfilesController.editProfile")
-    Route.put("/books/update/:id","BooksController.update")
-  }).middleware("profiles:1,2")
-  
 
-  Route.group(()=>{ //Rutas para los administradores
-    Route.delete("/user/:id","AuthController.delete")
-    Route.post("/profile","ProfilesController.registerProfile")
-    Route.delete("/profile/:id","ProfilesController.deleteProfile")
-    Route.post("/books","BooksController.store")
-    Route.delete("/books/:id","BooksController.delete")
+  Route.group(() => { //Rutas para los usuarios
+    Route.get("/books", "BooksController.index")
+    Route.get("/books/:id", "BooksController.show")
+  }).middleware("profiles:1,2,3")
+
+
+  Route.group(() => { //Rutas para los editores
+    Route.get("/users", "AuthController.searchAll")
+    Route.get("/user/:id", "AuthController.searchUserId")
+    Route.put("/user/update/:id", "AuthController.updateUser")
+    Route.get("/profile", "ProfilesController.getAllProfiles")
+    Route.get("/profile/:id", "ProfilesController.searchProfileId")
+    Route.put("/profile/update/:id", "ProfilesController.editProfile")
+    Route.put("/books/update/:id", "BooksController.update")
+  }).middleware("profiles:1,2")
+
+
+  Route.group(() => { //Rutas para los administradores
+    Route.delete("/user/:id", "AuthController.delete")
+    Route.post("/profile", "ProfilesController.registerProfile")
+    Route.delete("/profile/:id", "ProfilesController.deleteProfile")
+    Route.post("/books", "BooksController.store")
+    Route.delete("/books/:id", "BooksController.delete")
   }).middleware("profiles:1")
 }).prefix('api').middleware('auth')
