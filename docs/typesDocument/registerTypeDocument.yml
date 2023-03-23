@@ -1,0 +1,52 @@
+paths:
+  /api/v1/type/create:
+    post:
+      summary: Registra un nuevo tipo de documento
+      description: |
+        Esta función registra un nuevo tipo de documento utilizando los datos proporcionados en el cuerpo de la solicitud.
+      security:
+        - bearerAuth: []
+      tags:
+        - Types document
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre del nuevo tipo de documento
+                state:
+                  type: boolean
+                  description: Estado del nuevo tipo de documento (activo o inactivo)
+            example:
+              name: Cédula de ciudadanía
+              state: true
+      responses:
+        '200':
+          description: Tipo de documento registrado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de éxito
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

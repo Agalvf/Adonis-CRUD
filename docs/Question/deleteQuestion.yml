@@ -1,0 +1,53 @@
+paths:
+  /api/v1/questions/deleteQuestion/{id}:
+    delete:
+      summary: Elimina una pregunta específica por ID
+      description: |
+        Esta función elimina una pregunta específica en la base de datos mediante su ID.
+      security:
+        - bearerAuth: []
+      tags:
+        - Questions
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID de la pregunta a eliminar
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pregunta eliminada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de éxito
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+        '404':
+          description: Pregunta no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

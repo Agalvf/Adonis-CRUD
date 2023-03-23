@@ -1,0 +1,68 @@
+paths:
+  /api/v1/roles/create:
+    post:
+      summary: Crea un nuevo rol
+      description: Crea un nuevo rol con el nombre y estado proporcionados
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      requestBody:
+        description: Información del rol a crear
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nombre del rol
+                state:
+                  type: boolean
+                  description: Estado del rol
+            example:
+              name: "Administrador"
+              state: true
+      responses:
+        '200':
+          description: Rol creado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de éxito
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Nombre del rol creado
+                      state:
+                        type: boolean
+                        description: Estado del rol creado
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Fecha de creación del rol
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Fecha de actualización del rol
+        '400':
+          description: Error en el registro del rol
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

@@ -1,0 +1,61 @@
+paths:
+  /api/v1/roles/{id}:
+    get:
+      summary: Obtiene un rol por su ID
+      description: |
+        Esta función obtiene un rol por su ID utilizando el parámetro de ruta proporcionado. 
+        Retorna un objeto JSON con los datos del rol si se encuentra en la base de datos.
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      parameters:
+        - in: path
+          name: id
+          description: ID del rol a obtener
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Rol obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: ID del rol
+                      name:
+                        type: string
+                        description: Nombre del rol
+                      state:
+                        type: boolean
+                        description: Estado del rol
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: Fecha de creación del rol
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: Fecha de actualización del rol
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

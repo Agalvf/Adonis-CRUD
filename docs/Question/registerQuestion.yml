@@ -1,0 +1,82 @@
+paths:
+  /api/v1/questions/create:
+    post:
+      summary: Registra una nueva pregunta con sus opciones de respuesta
+      description: |
+        Esta función registra una nueva pregunta y sus opciones de respuesta proporcionadas en el cuerpo de la solicitud.
+      security:
+        - bearerAuth: []
+      tags:
+        - Questions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question:
+                  type: string
+                  description: Pregunta a registrar
+                options:
+                  type: array
+                  description: Array de opciones de respuesta para la pregunta
+                  items:
+                    type: object
+                    properties:
+                      opcion:
+                        type: string
+                        description: Texto de la opción de respuesta
+                      iscorrect:
+                        type: boolean
+                        description: Indica si la opción de respuesta es correcta o no
+            example: {
+              "question": "¿que dia es hoy - -- prueba?",
+              "options": [
+                  {
+                      "opcion": "esta es correcta",
+                      "iscorrect": true
+                  }, {
+                      "opcion": "incorrecta",
+                      "iscorrect": false
+                  }, {
+                      "opcion": "incorrecta",
+                      "iscorrect": false
+                  }, {
+                      "opcion": "incorrecta",
+                      "iscorrect": false
+                  }
+              ]
+            }
+      responses:
+        '200':
+          description: Pregunta registrada correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: boolean
+                    description: Indica si la pregunta se registró correctamente o no
+                  message:
+                    type: string
+                    description: Mensaje de éxito o error
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: boolean
+                    description: Indica si la pregunta se registró correctamente o no
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

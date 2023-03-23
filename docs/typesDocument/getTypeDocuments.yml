@@ -1,0 +1,38 @@
+paths:
+  /api/v1/type/getType:
+    get:
+      summary: Obtiene todos los tipos de documentos
+      description: |
+        Esta función obtiene todos los tipos de documentos almacenados en la base de datos.
+      security:
+        - bearerAuth: []
+      tags:
+        - Types document
+      responses:
+        '200':
+          description: Tipos de documento obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Array que contiene todos los tipos de documentos
+                    items:
+                      type: object
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

@@ -1,0 +1,59 @@
+paths:
+  /api/v1/type/{id}:
+    put:
+      summary: Actualiza un tipo de documento por su ID
+      description: |
+        Esta función actualiza un tipo de documento por su ID utilizando el parámetro de ruta y los datos proporcionados en el cuerpo de la solicitud.
+      security:
+        - bearerAuth: []
+      tags:
+        - Types document
+      parameters:
+        - in: path
+          name: id
+          description: ID del tipo de documento a actualizar
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Nuevo nombre del tipo de documento
+                state:
+                  type: boolean
+                  description: Nuevo estado del tipo de documento (activo o inactivo)
+            example:
+              name: 'test - updated'
+              state: true
+      responses:
+        '200':
+          description: Tipo de documento actualizado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de éxito
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

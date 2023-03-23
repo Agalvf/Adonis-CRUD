@@ -59,6 +59,4 @@ export default class QuestionsController {
             return response.status(400).json({ message: 'Error al eliminar la pregunta' })
         }
     }
-
-
 }

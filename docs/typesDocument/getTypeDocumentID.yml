@@ -1,0 +1,43 @@
+paths:
+  /api/v1/type/{id}:
+    get:
+      summary: Obtiene un tipo de documento por su ID
+      description: |
+        Esta función obtiene un tipo de documento por su ID utilizando el parámetro de ruta proporcionado.
+      security:
+        - bearerAuth: []
+      tags:
+        - Types document
+      parameters:
+        - in: path
+          name: id
+          description: ID del tipo de documento a obtener
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tipo de documento obtenido correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: Objeto que contiene la información del tipo de documento
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

@@ -1,0 +1,56 @@
+paths:
+  /api/v1/roles/getRoles:
+    get:
+      summary: Obtiene todos los roles
+      description: |
+        Esta función obtiene todos los roles en la base de datos y los retorna en formato JSON.
+      security:
+        - bearerAuth: []
+      tags:
+        - Roles
+      responses:
+        '200':
+          description: Roles obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    description: Lista de roles
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: ID del rol
+                        name:
+                          type: string
+                          description: Nombre del rol
+                        state:
+                          type: boolean
+                          description: Estado del rol
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: Fecha de creación del rol
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: Fecha de actualización del rol
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header

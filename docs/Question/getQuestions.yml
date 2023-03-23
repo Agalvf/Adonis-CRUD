@@ -1,0 +1,53 @@
+paths:
+  /api/v1/questions/getQuestions:
+    get:
+      summary: Obtiene todas las preguntas registradas
+      description: |
+        Esta función obtiene todas las preguntas registradas en la base de datos.
+      security:
+        - bearerAuth: []
+      tags:
+        - Questions
+      responses:
+        '200':
+          description: Todas las preguntas se obtuvieron correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array de todas las preguntas registradas
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: ID de la pregunta
+                    question:
+                      type: string
+                      description: Texto de la pregunta
+                    state:
+                      type: boolean
+                      description: Indica si la pregunta está activa o no
+                    created_at:
+                      type: string
+                      format: date-time
+                      description: Fecha y hora de creación de la pregunta
+                    updated_at:
+                      type: string
+                      format: date-time
+                      description: Fecha y hora de actualización de la pregunta
+        '400':
+          description: Error de solicitud
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error
+      securityDefinitions:
+        bearerAuth:
+          type: apiKey
+          name: Authorization
+          in: heade
