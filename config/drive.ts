@@ -140,7 +140,7 @@ export default driveConfig({
       |
       | The following option just informs drive whether your bucket is using uniform
       | ACL or not. The actual setting needs to be toggled within the Google cloud
-      | console.
+      | .
       |
       */
     //   usingUniformAcl: false,

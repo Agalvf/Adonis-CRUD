@@ -1,0 +1,106 @@
+/api/v1/users/create:
+  post:
+    tags:
+      - Usuarios
+    summary: Registrar usuario
+    description: Permite registrar un nuevo usuario en el sistema.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+                description: El nombre del usuario.
+              second_name:
+                type: string
+                description: El segundo nombre del usuario.
+              surname:
+                type: string
+                description: El apellido del usuario.
+              second_sur_name:
+                type: string
+                description: El segundo apellido del usuario.
+              type_document:
+                type: string
+                description: El tipo de documento del usuario.
+              document_number:
+                type: string
+                description: El número de documento del usuario.
+              email:
+                type: string
+                format: email
+                description: La dirección de correo electrónico del usuario.
+              password:
+                type: string
+                description: La contraseña del usuario.
+              rol_id:
+                type: integer
+                description: El ID del rol del usuario.
+              phone:
+                type: string
+                description: El número de teléfono del usuario.
+              state:
+                type: boolean
+                description: El estado del usuario (activo o inactivo).
+            required:
+              - first_name
+              - surname
+              - type_document
+              - document_number
+              - email
+              - password
+              - rol_id
+              - phone
+              - state
+            example:
+              first_name: Juan
+              second_name: Carlos
+              surname: Pérez
+              second_sur_name: Gómez
+              type_document: 1
+              document_number: 75523456
+              email: usuario@example.com
+              password: 123456
+              rol_id: 1
+              phone: 1234567890
+              state: true
+    responses:
+      '201':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Mensaje de respuesta.
+              example:
+                message: Usuario creado correctamente.
+      '400':
+        description: Error de solicitud
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Mensaje de respuesta.
+              example:
+                message: Fallo en la creación del usuario.
+      '409':
+        description: Conflicto con datos existentes
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Mensaje de respuesta.
+              example:
+                message: El correo o documento ya se encuentra registrado.

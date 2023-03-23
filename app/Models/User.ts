@@ -1,53 +1,23 @@
 import { DateTime } from 'luxon'
-import Hash from '@ioc:Adonis/Core/Hash'
-import {
-  column,
-  beforeSave,
-  BaseModel,
-  belongsTo,
-  BelongsTo
-} from '@ioc:Adonis/Lucid/Orm'
-import Profile from './Profile'
+import { BaseModel, HasOne, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import TypeDocument from './TypesDocument'
+import Role from './Role'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public name: string
-
-  @column()
-  public last_name: string
-
-  @column()
-  public type_id: number
-
-  @column()
-  public id_number: number
-
-  @column()
-  public address: string
-
-  @column()
-  public neighborhood: string
-
-  @column()
-  public municipality: string
-
-  @column()
-  public department: string
-
-  @column()
-  public email: string
-
-  @column({ serializeAs: null })
-  public password: string
-
-  @column()
-  public profile_id: number
-
-  @column()
-  public rememberMeToken?: string
+  @column() first_name: string
+  @column() second_name: string
+  @column() surname: string
+  @column() second_sur_name: string
+  @column() type_document: number
+  @column() document_number: number
+  @column() email: string
+  @column() password: string
+  @column() rol_id: number
+  @column() phone: string
+  @column() state: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -55,14 +25,15 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => Profile)
-  public profile: BelongsTo<typeof Profile>
+  @hasOne(() => TypeDocument,{
+    localKey: 'document_number',
+    foreignKey: 'id'
+  })
+  public typeDocument: HasOne<typeof TypeDocument>
 
-  @beforeSave()
-  public static async hashPassword(user: User) {
-    if (user.$dirty.password) {
-      user.password = await Hash.make(user.password)
-    }
-  }
-
+  @hasOne(() => Role, {
+    localKey: 'rol_id',
+    foreignKey: 'id'
+  })
+  public role: HasOne<typeof Role>
 }

@@ -1,38 +1,56 @@
+
 import Route from '@ioc:Adonis/Core/Route'
 
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
-
-//Rutas para cualquier usuario
-Route.post("/register", "AuthController.register")
-Route.post("/login", "AuthController.login")
-
 Route.group(() => {
+  Route.group(() => {
+    Route.post('/login', 'UsersController.login')
+  }).prefix('auth')
 
-  Route.group(() => { //Rutas para los usuarios
-    Route.get("/books", "BooksController.index")
-    Route.get("/books/:id", "BooksController.show")
-  }).middleware("profiles:1,2,3")
+  Route.group(() => {
+    Route.group(() => {
 
+      Route.group(() => {
+        Route.post('/postQuestions', 'FormsController.registerForm')
+        Route.get('/getQuestions', 'FormsController.getAllQuestions')
+      }).prefix('form')
+      Route.group(() => {
+        Route.post('/create', 'UsersController.registerUser')
+        Route.get('/getUsers', 'UsersController.getUsers')
+        Route.put('/update/:id', 'UsersController.updateUser')
+        Route.get('/getUser/:id', 'UsersController.updateUser')
+        Route.delete('/delete/:id', 'UsersController.deleteUser')
+      }).prefix('users')
+      Route.group(() => {
+        Route.post('/create', 'RolesController.registerRole')
+        Route.get('/getRoles', 'RolesController.obtenerRoles')
+        Route.get('/:id', 'RolesController.getRoleId')
+        Route.put('/:id', 'RolesController.updateRole')
+        Route.delete('/:id', 'RolesController.deleteRole')
+      }).prefix('roles')
+      Route.group(() => {
+        Route.post('/create', 'TypeDocumentsController.registerTypeDocument')
+        Route.get('/getType', 'TypeDocumentsController.getTypeDocuments')
+        Route.get('/:id', 'TypeDocumentsController.getTypeDocumentId')
+        Route.put('/:id', 'TypeDocumentsController.updateTypeDocument')
+        Route.delete('/:id', 'TypeDocumentsController.deleteTypeDocument')
+      }).prefix('type')
+      Route.group(() => {
+        Route.post('/create', 'QuestionsController.registerQuestion')
+        Route.get('/getQuestions', 'QuestionsController.getQuestions')
+        Route.get('/:id', 'QuestionsController.getQuestionId')
+        Route.get('/getOptions/:id', 'AnswersController.optionsAnswer')
+        Route.put('/updateQuestion/:id', 'QuestionsController.updateQuestion')
+        Route.put('/updateAnswer/:id', 'AnswersController.updateAnswer')
+        Route.delete('/deleteQuestion/:id', 'QuestionsController.deleteQuestion')
+      }).prefix('questions')
 
-  Route.group(() => { //Rutas para los editores
-    Route.get("/users", "AuthController.searchAll")
-    Route.get("/user/:id", "AuthController.searchUserId")
-    Route.put("/user/update/:id", "AuthController.updateUser")
-    Route.get("/profile", "ProfilesController.getAllProfiles")
-    Route.get("/profile/:id", "ProfilesController.searchProfileId")
-    Route.put("/profile/update/:id", "ProfilesController.editProfile")
-    Route.put("/books/update/:id", "BooksController.update")
-  }).middleware("profiles:1,2")
-
-
-  Route.group(() => { //Rutas para los administradores
-    Route.delete("/user/:id", "AuthController.delete")
-    Route.post("/profile", "ProfilesController.registerProfile")
-    Route.delete("/profile/:id", "ProfilesController.deleteProfile")
-    Route.post("/books", "BooksController.store")
-    Route.delete("/books/:id", "BooksController.delete")
-  }).middleware("profiles:1")
-}).prefix('api').middleware('auth')
+      Route.group(() => {
+        Route.post('/create', 'AnswersController.registerAnswer')
+        Route.get('/getAnswers', 'AnswersController.getAnswers')
+        Route.get('/:id', 'AnswersController.getAnswerId')
+        Route.delete('/:id', 'AnswersController.deleteAnswer')
+      }).prefix('answer')
+    })
+  }).middleware('auth')
+}).prefix('api/v1')

@@ -1,0 +1,91 @@
+/api/v1/auth/login:
+  post:
+    tags:
+      - Usuarios
+    summary: Iniciar sesión
+    description: Permite a un usuario autenticado en el sistema iniciar sesión y obtener un token de autenticación válido.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+                description: Dirección de correo electrónico del usuario registrado.
+              password:
+                type: string
+                description: Contraseña del usuario registrada.
+            required:
+              - email
+              - password
+            example:
+              email: agalvisf@gmail.co
+              password: "123456789"
+    responses:
+      '200':
+        description: Respuesta exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: boolean
+                  description: Estado de la solicitud.
+                id:
+                  type: integer
+                  description: Identificador único del usuario.
+                first_name:
+                  type: string
+                  description: Nombre del usuario.
+                role:
+                  type: string
+                  description: Rol del usuario en el sistema.
+                message:
+                  type: string
+                  description: Mensaje de respuesta.
+                token:
+                  type: string
+                  description: Token de autenticación válido para el usuario.
+            example:
+              state: true
+              id: 123
+              first_name: Juan
+              role: Administrador
+              message: Sesión iniciada correctamente.
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      '400':
+        description: Las credenciales de inicio de sesión son incorrectas.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: boolean
+                  description: Estado de la solicitud.
+                message:
+                  type: string
+                  description: Mensaje de respuesta.
+              example:
+                state: false
+                message: Contraseña o email invalido.
+      '401':
+        description: Las credenciales de inicio de sesión son incorrectas.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state:
+                  type: boolean
+                  description: Estado de la solicitud.
+                message:
+                  type: string
+                  description: Mensaje de respuesta.
+              example:
+                state: false
+                message: Contraseña o email invalido.

@@ -1,0 +1,60 @@
+definitions:
+  User:
+    type: object
+    required:
+      - id
+      - first_name
+      - surname
+      - email
+      - password
+      - rol_id
+      - state
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Identificador único del usuario.
+      first_name:
+        type: string
+        description: Nombre del usuario.
+      second_name:
+        type: string
+        description: Segundo nombre del usuario.
+      surname:
+        type: string
+        description: Apellido del usuario.
+      second_surname:
+        type: string
+        description: Segundo apellido del usuario.
+      type_document:
+        type: string
+        description: Tipo de documento del usuario.
+      document_number:
+        type: string
+        description: Número de documento del usuario.
+      email:
+        type: string
+        format: email
+        description: Dirección de correo electrónico del usuario.
+      password:
+        type: string
+        format: password
+        description: Contraseña del usuario.
+      rol_id:
+        type: integer
+        format: int64
+        description: Identificador del rol del usuario.
+      phone:
+        type: string
+        description: Número de teléfono del usuario.
+      state:
+        type: string
+        description: Estado del usuario.
+      created_at:
+        type: string
+        format: date-time
+        description: Fecha de creación del usuario.
+      updated_at:
+        type: string
+        format: date-time
+        description: Fecha de actualización del usuario.
