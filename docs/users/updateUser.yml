@@ -1,0 +1,87 @@
+paths:
+  /api/v1/users/update/{id}:
+    put:
+      summary: Actualizar un usuario por su ID
+      description: Actualiza los atributos de un usuario específico por su ID
+      security:
+      - bearerAuth: []
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID del usuario a actualizar
+          schema:
+            type: integer
+      requestBody:
+        description: Atributos del usuario a actualizar
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: Primer nombre del usuario
+                second_name:
+                  type: string
+                  description: Segundo nombre del usuario
+                surname:
+                  type: string
+                  description: Primer apellido del usuario
+                second_sur_name:
+                  type: string
+                  description: Segundo apellido del usuario
+                type_document:
+                  type: string
+                  description: Tipo de documento del usuario
+                document_number:
+                  type: string
+                  description: Número de documento del usuario
+                email:
+                  type: string
+                  format: email
+                  description: Correo electrónico del usuario
+                password:
+                  type: string
+                  description: Contraseña del usuario
+                rol_id:
+                  type: integer
+                  description: ID del rol del usuario
+                phone:
+                  type: string
+                  description: Número de teléfono del usuario
+                state:
+                  type: boolean
+                  description: Estado del usuario
+              example:
+                first_name: Juan
+                second_name: Manuel
+                surname: Pérez
+                second_sur_name: Gómez
+      responses:
+        '200':
+          description: Usuario actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: boolean
+                    description: Indica si la operación fue exitosa o no
+                  message:
+                    type: string
+                    description: Mensaje descriptivo de la operación realizada
+        '404':
+          description: No se encontró el usuario con el ID especificado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error

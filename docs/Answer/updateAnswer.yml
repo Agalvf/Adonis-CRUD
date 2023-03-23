@@ -1,0 +1,60 @@
+paths:
+  /api/v1/questions/updateAnswer/{id}:
+    put:
+      summary: Actualizar una respuesta por ID
+      description: Actualiza la respuesta correspondiente al ID especificado
+      security:
+        - bearerAuth: []
+      tags:
+        - Answer
+      parameters:
+        - name: id
+          in: path
+          description: ID de la respuesta a actualizar
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Atributos de la respuesta a actualizar
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                opcion:
+                  type: string
+                  description: Texto de la respuesta
+                is_correct:
+                  type: boolean
+                  description: Indica si la respuesta es correcta o no
+              example:
+                opcion: Respuesta 1
+                is_correct: true
+      responses:
+        '200':
+          description: Respuesta actualizada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: boolean
+                    description: Estado de la respuesta
+                  message:
+                    type: string
+                    description: Mensaje descriptivo de la operación realizada
+        '404':
+          description: Respuesta no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: boolean
+                    description: Estado de la respuesta
+                  message:
+                    type: string
+                    description: Mensaje de error descriptivo

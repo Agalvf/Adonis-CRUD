@@ -1,0 +1,53 @@
+paths:
+  /api/v1/form/postQuestions:
+    post:
+      summary: Registrar un formulario
+      description: Registra un nuevo formulario en el sistema
+      security:
+        - bearerAuth: []
+      tags:
+        - Form
+      requestBody:
+        description: Atributos del formulario a registrar
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                student_id:
+                  type: integer
+                  description: ID del estudiante que completó el formulario
+                answers:
+                  type: array
+                  items:
+                    type: integer
+                  description: IDs de las respuestas seleccionadas por el estudiante
+                state:
+                  type: boolean
+                  description: Estado del formulario
+            example:
+              student_id: 1
+              answers: [29, 30, 31]
+              state: true
+      responses:
+        '201':
+          description: Formulario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje descriptivo de la operación realizada
+        '400':
+          description: Error en el registro del formulario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error descriptivo

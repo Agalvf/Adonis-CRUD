@@ -15,7 +15,16 @@ export default {
 				title: 'Proyecto Final',
 				version: '1.0.0',
 				description: 'My application with swagger docs'
-			}
+			},
+			components: {
+				securitySchemes: {
+					bearerAuth: {
+						type: 'http',
+						scheme: 'bearer',
+						bearerFormat: 'JWT'
+					}
+				}
+			},
 		},
 
 		apis: [

@@ -20,6 +20,7 @@ export default class UsersController {
             await User.create(dataUser)
             return response.status(201).json({ message: 'Usuario creado correctamente' })
         } catch (error) {
+            console.log(error)
             return response.status(400).json({ message: 'Fallo en la creación del usuario' })
         }
     }

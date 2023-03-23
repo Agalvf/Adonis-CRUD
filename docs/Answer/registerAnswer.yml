@@ -1,0 +1,55 @@
+paths:
+  /api/v1/answer/create:
+    post:
+      summary: Registrar una respuesta
+      description: Registra una respuesta a una pregunta
+      security:
+        - bearerAuth: []
+      tags:
+        - Answer
+      requestBody:
+        description: Atributos de la respuesta a registrar
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                answer:
+                  type: string
+                  description: Texto de la respuesta
+                is_correct:
+                  type: boolean
+                  description: Indica si la respuesta es correcta o no
+                question_id:
+                  type: integer
+                  description: ID de la pregunta a la que se refiere la respuesta
+                state:
+                  type: boolean
+                  description: Estado de la respuesta
+              example:
+                answer: Respuesta 1
+                is_correct: true
+                question_id: 2
+                state: true
+      responses:
+        '201':
+          description: Respuesta registrada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje descriptivo de la operación realizada
+        '400':
+          description: Error en el registro de la respuesta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error

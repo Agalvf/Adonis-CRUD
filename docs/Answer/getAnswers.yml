@@ -1,0 +1,47 @@
+paths:
+  /api/v1/answer/getAnswers:
+    get:
+      summary: Obtener todas las respuestas
+      description: Obtiene una lista de todas las respuestas almacenadas en el sistema
+      security:
+        - bearerAuth: []
+      tags:
+        - Answer
+      responses:
+        '200':
+          description: Respuestas encontradas exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: ID de la respuesta
+                        answer:
+                          type: string
+                          description: Texto de la respuesta
+                        is_correct:
+                          type: boolean
+                          description: Indica si la respuesta es correcta o no
+                        question_id:
+                          type: integer
+                          description: ID de la pregunta a la que se refiere la respuesta
+                        state:
+                          type: boolean
+                          description: Estado de la respuesta
+        '404':
+          description: Respuestas no encontradas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Mensaje de error

@@ -1,0 +1,42 @@
+paths:
+  /api/v1/form/getQuestions:
+    get:
+      summary: Obtener todas las preguntas
+      description: Obtiene todas las preguntas almacenadas en el sistema, junto con sus opciones de respuesta
+      security:
+        - bearerAuth: []
+      tags:
+        - Form
+      responses:
+        '200':
+          description: Preguntas obtenidas exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: boolean
+                    description: Estado de la respuesta
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          description: ID de la pregunta
+                        text:
+                          type: string
+                          description: Texto de la pregunta
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                description: ID de la opción de respuesta
+                              option:
+                                type: string
+                                description: Texto de la opción de respuesta
